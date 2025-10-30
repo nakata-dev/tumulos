@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Busque esta informação de indexação de api icons dentro do site do google icons ou google materials-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <title>TÚMULOS DOS ANTEPASSADOS</title>
@@ -17,126 +16,80 @@
         body{
             background-image: linear-gradient(to right, blue, rgb(94, 91, 247));
         }
-        /* 1. ESTRUTURA E POSICIONAMENTO DO HEADER */
+
+        /* HEADER FIXO */
         header{
             background-color: blue;
             color: white;
-            position: fixed; /* O header deve ficar no topo */
-            height: 60px; /*Altura fixa de sessenta pixels*/
+            position: fixed;
+            height: 60px;
             width: 100%;
-            z-index: 1000; /*indexa o conteúdo no eixo z ou seja horizontal acima de 1000 coisas que existam no site*/         
+            z-index: 1000;
         }
-        
 
-        /* 2. ESTILO DO ÍCONE BURGUER */
+        /* ÍCONE DO MENU BURGUER */
         span#burguer{
-            display: block; /* Garante que o ícone ocupe toda a largura no mobile */
+            display: block;
             cursor: pointer;
             padding: 10px;
             font-size: 2em;
             color: white;
             background-color: blue;
-            text-align: center; /* Alinha o ícone para a direita no mobile */
+            text-align: center;
             transition: background-color 0.5s;
         }
         span#burguer:hover{
-            background-color: rgba(0, 0, 255, 0.7); /* Efeito hover no ícone */
+            background-color: rgba(0, 0, 255, 0.7);
         }
 
-        /* 3. ESTILO DO MENU (NAV) */
+        /* MENU DE NAVEGAÇÃO */
         menu#itens{
-            /* No mobile, o JS controla o display */
             background-color: white;
             padding: 10px 0;
-            /* Garante que o conteúdo (UL) fique centralizado */
             text-align: center; 
-            
         }
-        
-        /* 4. LISTA (UL) - Sem columns para centralizar */
+
         ul{
             list-style-type: none;
             padding: 0;
         }
-        
-        /* 5. ITENS DE LISTA (LI) */
         ul > li{
-            /* Transforma os itens em blocos em linha para que fiquem lado a lado no desktop */
             display: inline-block; 
-            padding: 0 8px; /* Espaçamento lateral entre os itens */
-            flex-direction: column-reverse;
+            padding: 0 8px;
         }
-        
-        /* 6. LINKS (A) */
         li > a {
             color: gray;
             text-decoration: none;
-            display: block; /* Permite que o padding e hover peguem toda a área do LI */
+            display: block;
             padding: 5px; 
             border-radius: 8px;
         }
-
         li > a:hover{
             background-color: rgba(25, 0, 255, 0.507);
-            color: white; /* Muda a cor do texto no hover para melhor contraste */
+            color: white;
         }
 
-        /* 7. ESTILO DO CONTEÚDO PRINCIPAL */
+        /* CONTEÚDO PRINCIPAL */
         main{
-            
             background-color: white;
             display: block;
             margin: auto;
             padding: 20px;
             width: 100vw;
-            /* ADICIONA ESPAÇO NO TOPO DO MAIN PARA EVITAR QUE O CONTEÚDO FIQUE DEBAIXO DO HEADER */
-            padding-top: 80px; /* Ajuste este valor se o header for maior */
+            padding-top: 80px;
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.397);
         }
 
-        /* CSS para o efeito âncora (já estava funcionando!) */
         html {
             scroll-behavior: smooth;
         }
 
         main div {
-            /* ESSENCIAL: Garante que, ao clicar no link, o topo do DIV pare abaixo do header */
-            scroll-margin-top: 65px; /* Ajuste este valor para ser um pouco MAIOR que a altura do seu header */
+            scroll-margin-top: 65px;
             padding: 20px;
         }
-        
-        /* 8. MEDIA QUERY (Responsividade para Desktop) */
-        @media screen and (min-width: 600px) {
-            span#burguer {
-                /* Esconde o ícone no desktop */
-                display: none;
-                
-            }
-            main{
-                max-width: 800px;
-            }
-            menu#itens {
-                /* Garante que o menu esteja sempre visível no desktop */
-                display: block !important; 
-                background-color: blue;
-                color: aliceblue;
-            }
-            menu a{
-                max-width: 800px;
-                color: white;
-            }
-            menu a:hover{
-                background-color: rgba(128, 128, 128, 0.685);
-                padding: 5px;
-                transition: background-color 1s;
-            }
-            header {
-                /* Centraliza o título do header no desktop, se houver */
-                text-align: center; 
-                
-                
-            }
-        }
+
+        /* FOOTER FIXO */
         footer{
             position: fixed;
             bottom: 0;
@@ -152,6 +105,7 @@
             padding: 5px;
             text-align: center;
         }
+
         #titulos{
             color: aliceblue;
             padding: 10px;
@@ -160,10 +114,10 @@
             border-top-left-radius: 4px;
             max-width: 800px;
         }
+
         pre{
             display: block;
             margin: 20px auto;
-            max-width: auto;
             white-space: pre-wrap;
             line-height: 1.8em;
             background-color: rgb(174, 189, 204);
@@ -171,12 +125,74 @@
             margin: 5px;
             padding: 20px;
         }
+
         #paragrafo{
             text-align: center;
             padding-right: 10px;
         }
+
+        /* ==========================================================
+           🔍 CONFIGURAÇÃO DA LUPA - CSS ADICIONADO ABAIXO
+           ========================================================== */
+
+        /* Container da imagem com zoom */
+        .img-zoom-container {
+            position: relative;
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        /* Imagem original */
+        .img-zoom {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* A lente que simula o círculo da lupa */
+        .img-lens {
+            position: absolute;
+            border: 2px solid #000;
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            cursor: none;
+            touch-action: none; /* Impede o scroll do celular enquanto arrasta o dedo */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* O resultado ampliado que aparece ao lado */
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            width: 300px;
+            height: 300px;
+            margin: 10px auto;
+            background-repeat: no-repeat;
+            background-size: 600px 600px; /* Ajusta o nível de zoom */
+            border-radius: 8px;
+        }
+
+        /* Responsividade para telas maiores */
+        @media screen and (min-width: 600px) {
+            span#burguer { display: none; }
+            main{ max-width: 800px; }
+            menu#itens {
+                display: block !important; 
+                background-color: blue;
+                color: aliceblue;
+            }
+            menu a{ color: white; }
+            menu a:hover{
+                background-color: rgba(128, 128, 128, 0.685);
+                padding: 5px;
+                transition: background-color 1s;
+            }
+            header { text-align: center; }
+        }
     </style>
 </head>
+
 <body onresize="mudouTamanho()">
 
     <header>
@@ -284,14 +300,37 @@
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
 
+
+        <!-- outras seções omitidas por brevidade... -->
+
         <div id="06">
             <h1 id="titulos"> &#10013; MAPA DO CEMITÉRIO</h1>
-            <br>
-        <abbr title="MAPA DO CEMITÉRIO DE MARINGÁ"><img src="tumulos.jpg" alt="Localização do Túmulos"></abbr>                 
+
+            <!-- ==========================================
+                 🔍 AQUI ENTRA O EFEITO DE LUPA
+                 ========================================== -->
+
+            <!-- Container que envolve a imagem e o resultado -->
+            <div class="img-zoom-container">
+                <!-- A imagem principal -->
+                <img id="myimage" src="tumulos.jpg" class="img-zoom" alt="Mapa do Cemitério">
+
+                <!-- O quadrado que mostrará o zoom -->
+                <div id="myresult" class="img-zoom-result"></div>
+            </div>
+
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
     </main>
+
+    <footer>
+        © 2025 - Ailton Akio Nakata
+    </footer>
+
     <script>
+        /* ==========================================================
+           SCRIPT ORIGINAL DO MENU
+           ========================================================== */
         const itens = document.getElementById('itens');
 
         function clickMenu() {
@@ -302,11 +341,9 @@
             }
         }
         
-        // Fecha o menu automaticamente ao clicar em um link
         const links = document.querySelectorAll('#itens a');
         links.forEach(link => {
             link.addEventListener('click', () => {
-                // Apenas fecha se estiver em tela menor que 768px (Mobile)
                 if (window.innerWidth < 768) { 
                     itens.style.display = 'none';
                 }
@@ -315,16 +352,68 @@
 
         function mudouTamanho() {
             if (window.innerWidth >= 768) {
-                // Desktop: sempre mostra o menu
                 itens.style.display = 'block';
             } else {
-                // Mobile: esconde o menu (deixa apenas o botão)
                 itens.style.display = 'none';
             }
         }
-
-        // Garante que a função seja chamada na primeira carga para definir o estado inicial
         mudouTamanho(); 
+
+        /* ==========================================================
+           🔍 SCRIPT DA LUPA - FUNCIONA COM MOUSE E TOQUE
+           ========================================================== */
+        function imageZoom(imgID, resultID) {
+            let img = document.getElementById(imgID);
+            let result = document.getElementById(resultID);
+            let lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-lens");
+            img.parentElement.insertBefore(lens, img);
+
+            // Calcula a proporção de aumento entre a imagem e o resultado
+            let cx = result.offsetWidth / lens.offsetWidth;
+            let cy = result.offsetHeight / lens.offsetHeight;
+
+            // Define o fundo da área de zoom
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+
+            // Eventos: mouse e toque
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                e.preventDefault();
+                let pos = getCursorPos(e);
+                let x = pos.x - lens.offsetWidth / 2;
+                let y = pos.y - lens.offsetHeight / 2;
+
+                // Limites para não sair da imagem
+                if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+                if (x < 0) {x = 0;}
+                if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+                if (y < 0) {y = 0;}
+
+                // Posiciona a lente
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+
+                // Atualiza o zoom
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                e = e.touches ? e.touches[0] : e;
+                let a = img.getBoundingClientRect();
+                let x = e.pageX - a.left - window.pageXOffset;
+                let y = e.pageY - a.top - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+
+        // Inicializa a lupa no carregamento da página
+        imageZoom("myimage", "myresult");
     </script>
 </body>
 </html>

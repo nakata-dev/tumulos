@@ -13,7 +13,10 @@
             margin: 0;
             box-sizing: border-box;
         }
-        body{
+        html, body{
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden; /*retira o espaço que falta para o preenchimento horizontal e vertical*/
             background-color: aliceblue;
         }
 
@@ -22,7 +25,7 @@
             background-color: blue;
             color: white;
             position: fixed;
-            padding-top: 20px;
+            padding-top: 15px;
             height: 60px;
             width: 100%;
             z-index: 1000;
@@ -78,7 +81,7 @@
             max-width: 769px;
             min-width: 300px;
             padding: 20px;
-            width: 90vw;
+            width: 90%; /*Correção da largura da img*/
             padding-top: 80px;
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.836);
         }
@@ -133,7 +136,7 @@
             text-align: center;
             padding-right: 10px;
         }
-        #mapa img{
+        #mapa{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -254,7 +257,7 @@
             <br>
             <br>
             <br>
-            <div id="mapa"><abbr title="MAPA DO CEMITÉRIO DE MARINGÁ"><img src="tumulos.jpg" alt="Localização do Túmulos"></abbr></div>            
+            <div id="mapa"><img src="tumulos.jpg" alt="Localização do Túmulos"></div>            
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
     </div>

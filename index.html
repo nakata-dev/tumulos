@@ -304,23 +304,15 @@
         <!-- outras seções omitidas por brevidade... -->
 
         <div id="06">
-            <h1 id="titulos"> &#10013; MAPA DO CEMITÉRIO</h1>
+        <h1 id="titulos">MAPA DO CEMITÉRIO</h1>
 
-            <!-- ==========================================
-                 🔍 AQUI ENTRA O EFEITO DE LUPA
-                 ========================================== -->
-
-            <!-- Container que envolve a imagem e o resultado -->
-            <div class="img-zoom-container">
-                <!-- A imagem principal -->
-                <img id="myimage" src="tumulos.jpg" class="img-zoom" alt="Mapa do Cemitério">
-
-                <!-- O quadrado que mostrará o zoom -->
-                <div id="myresult" class="img-zoom-result"></div>
-            </div>
-
-            <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
+        <div class="img-zoom-container">
+        <img id="myimage" src="tumulos.jpg" class="img-zoom" alt="Mapa do Cemitério">
+        <div id="lens" class="img-lens"></div>
         </div>
+
+        <p style="text-align:center;"><em>Use o dedo ou o mouse para mover a lupa sobre o mapa</em></p>
+    </div>
     </main>
 
     <footer>
@@ -359,61 +351,56 @@
         }
         mudouTamanho(); 
 
-        /* ==========================================================
-           🔍 SCRIPT DA LUPA - FUNCIONA COM MOUSE E TOQUE
-           ========================================================== */
-        function imageZoom(imgID, resultID) {
-            let img = document.getElementById(imgID);
-            let result = document.getElementById(resultID);
-            let lens = document.createElement("DIV");
-            lens.setAttribute("class", "img-lens");
-            img.parentElement.insertBefore(lens, img);
+    // 🔍 LUPA FUNCIONAL (mouse + toque)
 
-            // Calcula a proporção de aumento entre a imagem e o resultado
-            let cx = result.offsetWidth / lens.offsetWidth;
-            let cy = result.offsetHeight / lens.offsetHeight;
+    const img = document.getElementById('myimage');
+    const lens = document.getElementById('lens');
+    const zoom = 2; // nível de zoom
 
-            // Define o fundo da área de zoom
-            result.style.backgroundImage = "url('" + img.src + "')";
-            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+    function moveLens(e) {
+      e.preventDefault();
+      let pos = getCursorPos(e);
+      let x = pos.x - lens.offsetWidth / 2;
+      let y = pos.y - lens.offsetHeight / 2;
+      const maxX = img.width - lens.offsetWidth;
+      const maxY = img.height - lens.offsetHeight;
+      if (x < 0) x = 0;
+      if (y < 0) y = 0;
+      if (x > maxX) x = maxX;
+      if (y > maxY) y = maxY;
+      lens.style.left = x + "px";
+      lens.style.top = y + "px";
+      lens.style.backgroundPosition = `-${x * zoom}px -${y * zoom}px`;
+    }
 
-            // Eventos: mouse e toque
-            lens.addEventListener("mousemove", moveLens);
-            img.addEventListener("mousemove", moveLens);
-            lens.addEventListener("touchmove", moveLens);
-            img.addEventListener("touchmove", moveLens);
+    function getCursorPos(e) {
+      const rect = img.getBoundingClientRect();
+      const touch = e.touches ? e.touches[0] : e;
+      let x = touch.pageX - rect.left - window.pageXOffset;
+      let y = touch.pageY - rect.top - window.pageYOffset;
+      return { x, y };
+    }
 
-            function moveLens(e) {
-                e.preventDefault();
-                let pos = getCursorPos(e);
-                let x = pos.x - lens.offsetWidth / 2;
-                let y = pos.y - lens.offsetHeight / 2;
+    function startZoom(e) {
+      lens.style.display = "block";
+      lens.style.backgroundImage = `url('${img.src}')`;
+      lens.style.backgroundRepeat = "no-repeat";
+      lens.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+      moveLens(e);
+      img.addEventListener("mousemove", moveLens);
+      img.addEventListener("touchmove", moveLens);
+    }
 
-                // Limites para não sair da imagem
-                if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
-                if (x < 0) {x = 0;}
-                if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
-                if (y < 0) {y = 0;}
+    function endZoom() {
+      lens.style.display = "none";
+      img.removeEventListener("mousemove", moveLens);
+      img.removeEventListener("touchmove", moveLens);
+    }
 
-                // Posiciona a lente
-                lens.style.left = x + "px";
-                lens.style.top = y + "px";
-
-                // Atualiza o zoom
-                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
-            }
-
-            function getCursorPos(e) {
-                e = e.touches ? e.touches[0] : e;
-                let a = img.getBoundingClientRect();
-                let x = e.pageX - a.left - window.pageXOffset;
-                let y = e.pageY - a.top - window.pageYOffset;
-                return {x: x, y: y};
-            }
-        }
-
-        // Inicializa a lupa no carregamento da página
-        imageZoom("myimage", "myresult");
+    img.addEventListener("mousemove", startZoom);
+    img.addEventListener("mouseleave", endZoom);
+    img.addEventListener("touchstart", startZoom);
+    img.addEventListener("touchend", endZoom);
     </script>
 </body>
 </html>

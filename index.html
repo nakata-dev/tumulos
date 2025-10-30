@@ -14,7 +14,9 @@
             margin: 0;
             box-sizing: border-box;
         }
-        
+        body{
+            background-image: linear-gradient(to right, blue, rgb(94, 91, 247));
+        }
         /* 1. ESTRUTURA E POSICIONAMENTO DO HEADER */
         header{
             background-color: blue;
@@ -81,10 +83,12 @@
 
         /* 7. ESTILO DO CONTEÚDO PRINCIPAL */
         main{
+            
+            background-color: white;
             display: block;
             margin: auto;
             padding: 20px;
-            width: 90vw;
+            width: 100vw;
             /* ADICIONA ESPAÇO NO TOPO DO MAIN PARA EVITAR QUE O CONTEÚDO FIQUE DEBAIXO DO HEADER */
             padding-top: 80px; /* Ajuste este valor se o header for maior */
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.397);
@@ -154,7 +158,7 @@
             background-image: linear-gradient(to right, rgb(55, 0, 252), rgba(1, 70, 97, 0.479));
             border-bottom-right-radius: 8px;
             border-top-left-radius: 4px;
-            max-width: 400px;
+            max-width: 800px;
         }
         pre{
             display: block;
@@ -168,7 +172,7 @@
             padding: 20px;
         }
         #paragrafo{
-            text-align: right;
+            text-align: center;
             padding-right: 10px;
         }
     </style>
@@ -195,7 +199,7 @@
             <br>
             <br>
             <br>
-            <h1 id="titulos">| MASSAR HASHIMOTO</h1>
+            <h1 id="titulos"> &#10013; MASSAR HASHIMOTO</h1>
             <br>
             <br>
             <br>
@@ -213,7 +217,7 @@
             <br>
             <br>
             <br>
-            <h2 id="titulos">| TIO TADAO E TIA</h2>
+            <h1 id="titulos"> &#10013; TIO TADAO E TIA</h1>
             <br>
             <br>
             <br>
@@ -231,7 +235,7 @@
             <br>
             <br>
             <br>
-            <h2 id="titulos">| ISURU NAKANO</h2>
+            <h1 id="titulos"> &#10013; ISURU NAKANO</h1>
             <br>
             <br>
             <br>
@@ -249,7 +253,7 @@
             <br>
             <br>
             <br>
-            <h2 id="titulos">| MIDORI TAMASHIRO</h2>
+            <h1 id="titulos"> &#10013; MIDORI TAMASHIRO</h1>
             <br>
             <br>
             <br>
@@ -267,7 +271,7 @@
             <br>
             <br>
             <br>
-            <h2 id="titulos">| WAGNER MASSAO NAKATA</h2>
+            <h1 id="titulos"> &#10013; WAGNER MASSAO NAKATA</h1>
             <br>
             <br>
             <br>
@@ -281,15 +285,12 @@
         </div>
 
         <div id="06">
-            <h2 id="titulos">| MAPA DO CEMITÉRIO</h2>
+            <h1 id="titulos"> &#10013; MAPA DO CEMITÉRIO</h1>
             <br>
         <abbr title="MAPA DO CEMITÉRIO DE MARINGÁ"><img src="tumulos.jpg" alt="Localização do Túmulos"></abbr>                 
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
     </main>
-    <footer>
-         &copy;Copyright 2024-2025 Nakata-dev
-    </footer>
     <script>
         const itens = document.getElementById('itens');
 

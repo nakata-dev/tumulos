@@ -315,6 +315,7 @@
     </div>
     </main>
 
+
     <footer>
         © 2025 - Ailton Akio Nakata
     </footer>
@@ -350,57 +351,63 @@
             }
         }
         mudouTamanho(); 
+/* ==========================================================
+    SCRIPT ORIGINAL DO MENU
+========================================================== */
 
     // 🔍 LUPA FUNCIONAL (mouse + toque)
 
     const img = document.getElementById('myimage');
-    const lens = document.getElementById('lens');
-    const zoom = 2; // nível de zoom
+const lens = document.getElementById('lens');
+const zoom = 2; // nível de zoom
+let zoomAtivo = false; // controla se o zoom já foi ativado
 
-    function moveLens(e) {
-      e.preventDefault();
-      let pos = getCursorPos(e);
-      let x = pos.x - lens.offsetWidth / 2;
-      let y = pos.y - lens.offsetHeight / 2;
-      const maxX = img.width - lens.offsetWidth;
-      const maxY = img.height - lens.offsetHeight;
-      if (x < 0) x = 0;
-      if (y < 0) y = 0;
-      if (x > maxX) x = maxX;
-      if (y > maxY) y = maxY;
-      lens.style.left = x + "px";
-      lens.style.top = y + "px";
-      lens.style.backgroundPosition = `-${x * zoom}px -${y * zoom}px`;
-    }
+function moveLens(e) {
+  e.preventDefault();
+  let pos = getCursorPos(e);
+  let x = pos.x - lens.offsetWidth / 2;
+  let y = pos.y - lens.offsetHeight / 2;
+  const maxX = img.width - lens.offsetWidth;
+  const maxY = img.height - lens.offsetHeight;
 
-    function getCursorPos(e) {
-      const rect = img.getBoundingClientRect();
-      const touch = e.touches ? e.touches[0] : e;
-      let x = touch.pageX - rect.left - window.pageXOffset;
-      let y = touch.pageY - rect.top - window.pageYOffset;
-      return { x, y };
-    }
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
 
-    function startZoom(e) {
-      lens.style.display = "block";
-      lens.style.backgroundImage = `url('${img.src}')`;
-      lens.style.backgroundRepeat = "no-repeat";
-      lens.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-      moveLens(e);
-      img.addEventListener("mousemove", moveLens);
-      img.addEventListener("touchmove", moveLens);
-    }
+  lens.style.left = x + "px";
+  lens.style.top = y + "px";
+  lens.style.backgroundPosition = `-${x * zoom}px -${y * zoom}px`;
+}
 
-    function endZoom() {
-      lens.style.display = "none";
-      img.removeEventListener("mousemove", moveLens);
-      img.removeEventListener("touchmove", moveLens);
-    }
+function getCursorPos(e) {
+  const rect = img.getBoundingClientRect();
+  const touch = e.touches ? e.touches[0] : e;
+  let x = touch.pageX - rect.left - window.pageXOffset;
+  let y = touch.pageY - rect.top - window.pageYOffset;
+  return { x, y };
+}
 
-    img.addEventListener("mousemove", startZoom);
-    img.addEventListener("mouseleave", endZoom);
-    img.addEventListener("touchstart", startZoom);
-    img.addEventListener("touchend", endZoom);
+function startZoom(e) {
+  lens.style.display = "block";
+  lens.style.backgroundImage = `url('${img.src}')`;
+  lens.style.backgroundRepeat = "no-repeat";
+  lens.style.backgroundSize = (img.width * zoom * 3) + "px" + (img.height * zoom * 3) + "px";
+  moveLens(e);
+  zoomAtivo = true;
+
+  // Ativa o movimento no mouse e no toque
+  img.addEventListener("mousemove", moveLens);
+  img.addEventListener("touchmove", moveLens);
+}
+
+// 🔥 NÃO ESCONDEMOS MAIS A LUPA
+// Nada de "endZoom" aqui!
+
+// Eventos
+img.addEventListener("mousemove", startZoom);
+img.addEventListener("touchstart", startZoom);
+
     </script>
 </body>
 </html>

@@ -130,17 +130,20 @@
             text-align: center;
             padding-right: 10px;
         }
+        .zoom:hover{
+            transform: scale(1.6);
+        }
 
         /* ==========================================================
            🔍 CONFIGURAÇÃO DA LUPA - CSS ADICIONADO ABAIXO
            ========================================================== */
 
         /* Container da imagem com zoom */
-        .img-zoom-container {
+        /*.img-zoom-container {
             position: relative;
             width: 300px;
             margin: 20px auto;
-        }
+        }*/
 
         /* Imagem original */
         .img-zoom {
@@ -306,7 +309,8 @@
         <div id="06">
         <h1 id="titulos">MAPA DO CEMITÉRIO</h1>
 
-        <div class="img-zoom-container">
+        <!--<div class="img-zoom-container">-->
+        <div class="zoom">
         <img id="myimage" src="tumulos.jpg" class="img-zoom" alt="Mapa do Cemitério">
         <div id="lens" class="img-lens"></div>
         </div>
@@ -356,7 +360,7 @@
 ========================================================== */
 
     // 🔍 LUPA FUNCIONAL (mouse + toque)
-
+/*
     const img = document.getElementById('myimage');
 const lens = document.getElementById('lens');
 const zoom = 2; // nível de zoom
@@ -407,7 +411,7 @@ function startZoom(e) {
 // Eventos
 img.addEventListener("mousemove", startZoom);
 img.addEventListener("touchstart", startZoom);
-
+*/
     </script>
 </body>
 </html>

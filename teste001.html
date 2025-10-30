@@ -130,7 +130,66 @@
             text-align: center;
             padding-right: 10px;
         }
-        
+
+        /* ==========================================================
+           🔍 CONFIGURAÇÃO DA LUPA - CSS ADICIONADO ABAIXO
+           ========================================================== */
+
+        /* Container da imagem com zoom */
+        .img-zoom-container {
+            position: relative;
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        /* Imagem original */
+        .img-zoom {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* A lente que simula o círculo da lupa */
+        .img-lens {
+            position: absolute;
+            border: 2px solid #000;
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            cursor: none;
+            touch-action: none; /* Impede o scroll do celular enquanto arrasta o dedo */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* O resultado ampliado que aparece ao lado */
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            width: 300px;
+            height: 300px;
+            margin: 10px auto;
+            background-repeat: no-repeat;
+            background-size: 600px 600px; /* Ajusta o nível de zoom */
+            border-radius: 8px;
+        }
+
+        /* Responsividade para telas maiores */
+        @media screen and (min-width: 600px) {
+            span#burguer { display: none; }
+            main{ max-width: 800px; }
+            menu#itens {
+                display: block !important; 
+                background-color: blue;
+                color: aliceblue;
+            }
+            menu a{ color: white; }
+            menu a:hover{
+                background-color: rgba(128, 128, 128, 0.685);
+                padding: 5px;
+                transition: background-color 1s;
+            }
+            header { text-align: center; }
+        }
     </style>
 </head>
 
@@ -204,7 +263,7 @@
             <br>             
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
-        
+
         <div id="04">
             <br>
             <br>
@@ -240,19 +299,31 @@
             <br>               
             <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
         </div>
-        
+
+
+        <!-- outras seções omitidas por brevidade... -->
+
         <div id="06">
-            <h2 id="titulos">| MAPA DO CEMITÉRIO</h2>
-            <br>
-            <abbr title="MAPA DO CEMITÉRIO DE MARINGÁ"><img src="tumulos.jpg" alt="Localização do Túmulos"></abbr>                 
-            <p id="paragrafo" style="height: 100vh;"><em>Navegue pelo menu...</em></p>
+        <h1 id="titulos">MAPA DO CEMITÉRIO</h1>
+
+        <div class="img-zoom-container">
+        <img id="myimage" src="tumulos.jpg" class="img-zoom" alt="Mapa do Cemitério">
+        <div id="lens" class="img-lens"></div>
         </div>
+
+        <p style="text-align:center;"><em>Use o dedo ou o mouse para mover a lupa sobre o mapa</em></p>
     </div>
     </main>
-        <footer>
-            &copy;Copyright 2024-2025 Nakata-dev
-        </footer>
+
+
+    <footer>
+        © 2025 - Ailton Akio Nakata
+    </footer>
+
     <script>
+        /* ==========================================================
+           SCRIPT ORIGINAL DO MENU
+           ========================================================== */
         const itens = document.getElementById('itens');
 
         function clickMenu() {
@@ -280,6 +351,63 @@
             }
         }
         mudouTamanho(); 
+/* ==========================================================
+    SCRIPT ORIGINAL DO MENU
+========================================================== */
+
+    // 🔍 LUPA FUNCIONAL (mouse + toque)
+
+    const img = document.getElementById('myimage');
+const lens = document.getElementById('lens');
+const zoom = 2; // nível de zoom
+let zoomAtivo = false; // controla se o zoom já foi ativado
+
+function moveLens(e) {
+  e.preventDefault();
+  let pos = getCursorPos(e);
+  let x = pos.x - lens.offsetWidth / 2;
+  let y = pos.y - lens.offsetHeight / 2;
+  const maxX = img.width - lens.offsetWidth;
+  const maxY = img.height - lens.offsetHeight;
+
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
+
+  lens.style.left = x + "px";
+  lens.style.top = y + "px";
+  lens.style.backgroundPosition = `-${x * zoom}px -${y * zoom}px`;
+}
+
+function getCursorPos(e) {
+  const rect = img.getBoundingClientRect();
+  const touch = e.touches ? e.touches[0] : e;
+  let x = touch.pageX - rect.left - window.pageXOffset;
+  let y = touch.pageY - rect.top - window.pageYOffset;
+  return { x, y };
+}
+
+function startZoom(e) {
+  lens.style.display = "block";
+  lens.style.backgroundImage = `url('${img.src}')`;
+  lens.style.backgroundRepeat = "no-repeat";
+  lens.style.backgroundSize = (img.width * zoom * 3) + "px" + (img.height * zoom * 3) + "px";
+  moveLens(e);
+  zoomAtivo = true;
+
+  // Ativa o movimento no mouse e no toque
+  img.addEventListener("mousemove", moveLens);
+  img.addEventListener("touchmove", moveLens);
+}
+
+// 🔥 NÃO ESCONDEMOS MAIS A LUPA
+// Nada de "endZoom" aqui!
+
+// Eventos
+img.addEventListener("mousemove", startZoom);
+img.addEventListener("touchstart", startZoom);
+
     </script>
 </body>
 </html>
